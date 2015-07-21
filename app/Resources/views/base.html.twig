@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
+
+            <header>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="http://www.orbitale.io"><img src="http://www.orbitale.io/icon20.png" alt="Orbitale.io"></a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="{{ page is defined and page.homepage ? 'active' : '' }}"><a href="{{ path('root') }}">{{ 'home' | trans({}, 'OrbitaleCms') }}</a></li>
+                                <li class="dropdown {{ category is defined ? 'active' : '' }}">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'categories' | trans }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        {% for nav_category in get_categories() %}
+                                            <li {{ category is defined and category.slug == nav_category.slug ? 'class="active"' : '' }}>
+                                                <a href="{{ path('orbitale_cms_category', {"slugs": nav_category.tree}) }}">{{ nav_category.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><a href="{{ path('admin') }}">{{ 'admin' | trans }}</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://github.com/Orbitale/CmsBundle"><img src="{{ asset('GitHub-Mark-32px.png') }}" alt="Github" width="16" height="16"> Github</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+
+            </header>
+
+            <hr>
+
+            <section class="row">
+
+                <aside class="col-lg-3">
+                    {% for nav_page in get_pages(false) %}
+                        <ul class="breadcrumb">
+                            {% if page is defined and nav_page.slug == page.slug %}
+                                <li>{{ nav_page.title }}</li>
+                            {% else %}
+                                <li class="active">
+                                    <a href="{{ path('orbitale_cms_page', {"slugs": nav_page.tree}) }}">{{ nav_page.title }}</a>
+                                </li>
+                            {% endif %}
+                            {% set children = nav_page.children %}
+                            {% if children | length %}
+                                {% for child in children %}
+                                    {% set child_children = child.children %}
+                                    {% if page is defined and child.slug == page.slug %}
+                                        <li>
+                                            {{ child.title }}
+                                            {% if child_children | length %}<br>And more children...{% endif %}
+                                        </li>
+                                    {% else %}
+                                        <li class="active">
+                                            <a href="{{ path('orbitale_cms_page', {"slugs": child.tree}) }}">{{ child.title }}</a>
+                                            {% if child_children | length %}<br>And more children...{% endif %}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    {% else %}
+                        <p class="alert alert-warning">{{ 'no_page' | trans }}</p>
+                    {% endfor %}
+                </aside>
+
+                <aside class="col-lg-9">
+                    {% block orbitale_cms_page_content %}{% endblock %}
+                </aside>
+
+            </section>
+
+            <footer>
+
+            </footer>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery-latest.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+        {% endblock %}
+    </body>
+</html>

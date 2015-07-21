@@ -1,0 +1,7 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block navigation_items %}
+    <li><a href="{{ path('root') }}">{{ 'back_to_home' | trans }}</a></li>
+
+    {{ parent() }}
+{% endblock %}

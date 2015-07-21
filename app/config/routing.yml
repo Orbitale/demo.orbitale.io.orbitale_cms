@@ -1,0 +1,25 @@
+
+# The root page of the application automatically loads the homepage from the
+# OrbitaleCmsBundle, and will use the default app locale.
+root:
+    path: /
+    defaults:
+        _controller: OrbitaleCmsBundle:Page:index
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/admin
+    requirements: { _locale: "%%locales_regex%" }
+
+orbitale_cms_page:
+    resource: "@OrbitaleCmsBundle/Controller/PageController.php"
+    type:     annotation
+    prefix:   /{_locale}/
+    requirements: { _locale: "%%locales_regex%" }
+
+orbitale_cms_category:
+    resource: "@OrbitaleCmsBundle/Controller/CategoryController.php"
+    type:     annotation
+    prefix:   /{_locale}/category/
+    requirements: { _locale: "%%locales_regex%" }
