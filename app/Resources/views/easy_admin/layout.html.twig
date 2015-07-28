@@ -5,3 +5,8 @@
 
     {{ parent() }}
 {% endblock %}
+
+{% block header_footer %}
+    {{ parent() }}
+    <p>Powered by <a href="http://github.com/javiereguiluz/EasyAdminBundle">EasyAdminBundle</a></p>
+{% endblock %}
