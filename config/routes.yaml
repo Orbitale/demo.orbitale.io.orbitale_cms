@@ -1,4 +1,4 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
-    trailing_slash_on_root: true
+    trailing_slash_on_root: false
