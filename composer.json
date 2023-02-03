@@ -1,63 +1,113 @@
 {
-    "name": "aancelet/orbitale_cms",
-    "license": "proprietary",
     "type": "project",
-    "description": "Demo app for OrbitaleCmsBundle",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
-    },
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": ">=5.3.9",
-        "symfony/symfony": "2.8.*",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
-        "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~4.0",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "orbitale/cms-bundle": "^1.2",
-        "javiereguiluz/easyadmin-bundle": "^1.5",
-        "friendsofsymfony/user-bundle": "v1.3.6",
-        "orbitale/doctrine-tools": "^0.3.0",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*"
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.8",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.14",
+        "easycorp/easyadmin-bundle": "^4.5",
+        "orbitale/array-fixture": "^1.3",
+        "orbitale/cms-bundle": "^4.1",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.16",
+        "sensio/framework-extra-bundle": "^6.1",
+        "stof/doctrine-extensions-bundle": "^1.7",
+        "symfony/asset": "6.1.*",
+        "symfony/console": "6.1.*",
+        "symfony/doctrine-messenger": "6.1.*",
+        "symfony/dotenv": "6.1.*",
+        "symfony/expression-language": "6.1.*",
+        "symfony/flex": "^2",
+        "symfony/form": "6.1.*",
+        "symfony/framework-bundle": "6.1.*",
+        "symfony/http-client": "6.1.*",
+        "symfony/intl": "6.1.*",
+        "symfony/mailer": "6.1.*",
+        "symfony/mime": "6.1.*",
+        "symfony/monolog-bundle": "^3.0",
+        "symfony/notifier": "6.1.*",
+        "symfony/process": "6.1.*",
+        "symfony/property-access": "6.1.*",
+        "symfony/property-info": "6.1.*",
+        "symfony/runtime": "6.1.*",
+        "symfony/security-bundle": "6.1.*",
+        "symfony/serializer": "6.1.*",
+        "symfony/string": "6.1.*",
+        "symfony/translation": "6.1.*",
+        "symfony/twig-bundle": "6.1.*",
+        "symfony/validator": "6.1.*",
+        "symfony/web-link": "6.1.*",
+        "symfony/yaml": "6.1.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ]
+        "phpunit/phpunit": "^10.0",
+        "symfony/browser-kit": "6.1.*",
+        "symfony/css-selector": "6.1.*",
+        "symfony/debug-bundle": "6.1.*",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/phpunit-bridge": "^6.2",
+        "symfony/stopwatch": "6.1.*",
+        "symfony/web-profiler-bundle": "6.1.*"
     },
     "config": {
-        "bin-dir": "bin"
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.1.*"
         }
     }
 }

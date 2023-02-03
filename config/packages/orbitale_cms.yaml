@@ -1,0 +1,5 @@
+orbitale_cms:
+    page_class: App\Entity\Page
+    category_class: App\Entity\Category
+    layouts:
+         main: { resource: cms_base.html.twig }
